@@ -17,10 +17,8 @@ OUTPUT_FILE="$SOURCE_DIR/$MODULE_NAME.exe"
 RAYLIB_PATH="C:/repos/mox/modules/vendor/raylib/win64_mingw"
 RAYLIB_DLL="$RAYLIB_PATH/raylib.dll"
 
-W64DEVKIT="C:/repos/w64devkit"
-
 GCC="gcc"
-MOX_EXE="./mox.exe"
+MOX_EXE="C:/repos/mox/mox.exe"
 # ------------------------------------------------------------
 # 1. Compile Mox -> MinGW COFF objects
 # ------------------------------------------------------------
@@ -101,3 +99,28 @@ echo "============================================"
 echo " Linker: GCC"
 echo " EXE:    $OUTPUT_FILE"
 echo " DLL:    $DLL_OUTPUT"
+
+# mox ./examples/2_raylib.mox
+#         │
+#         ├── compile source
+#         │
+#         ├── encounter #run
+#         │
+#         ├── link raylib into comptime runtime
+#         │
+#         ├── execute show_simple_window("comptime hello")
+#         │             │
+#         │             └── window stays open
+#         │                 until WindowShouldClose()
+#         │
+#         ├── #run finishes
+#         │
+#         ├── continue Mox compilation
+#         │
+#         │   copy the obj files and exe to examples(source file path):
+#         ├── emit .obj.0.obj
+#         ├── emit .obj.1.obj
+#         ├── emit .obj.2.obj
+#         ├── emit .obj.3.obj
+#         │
+#         └── final link → .exe

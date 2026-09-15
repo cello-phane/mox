@@ -10,7 +10,7 @@ $moduleName = "2_raylib.mox"
 $sourceFile = Join-Path $sourceDir $moduleName
 $objectBase = Join-Path $sourceDir "$moduleName.obj"
 $outputFile = Join-Path $sourceDir "$moduleName.exe"
-
+$moxExe = "C:\repos\mox\mox.exe"
 $raylibPath = "C:\repos\mox\modules\vendor\raylib\win64_mingw"
 $raylibDll  = Join-Path $raylibPath "raylib.dll"
 $clang = "C:\software\llvm\bin\clang.exe"
@@ -27,7 +27,7 @@ Write-Host "============================================"
 Write-Host " Compiling Mox -> LLVM COFF OBJ"
 Write-Host "============================================"
 
-& .\mox.exe `
+& $moxExe `
     backend=llvm `
     llvm_out_format=obj `
     compile=$sourceFile `
@@ -147,3 +147,29 @@ Write-Host "============================================"
 Write-Host " Linker: $linkerName"
 Write-Host " EXE:    $outputFile"
 Write-Host " DLL:    $(Join-Path $sourceDir 'raylib.dll')"
+
+
+# mox ./examples/2_raylib.mox
+#         │
+#         ├── compile source
+#         │
+#         ├── encounter #run
+#         │
+#         ├── link raylib into comptime runtime
+#         │
+#         ├── execute show_simple_window("comptime hello")
+#         │             │
+#         │             └── window stays open
+#         │                 until WindowShouldClose()
+#         │
+#         ├── #run finishes
+#         │
+#         ├── continue Mox compilation
+#         │
+#         │   copy the obj files and exe to examples(source file path):
+#         ├── emit .obj.0.obj
+#         ├── emit .obj.1.obj
+#         ├── emit .obj.2.obj
+#         ├── emit .obj.3.obj
+#         │
+#         └── final link → .exe
