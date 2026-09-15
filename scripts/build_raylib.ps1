@@ -14,12 +14,7 @@ $outputFile = Join-Path $sourceDir "$moduleName.exe"
 $raylibPath = "C:\repos\mox\modules\vendor\raylib\win64_mingw"
 $raylibDll  = Join-Path $raylibPath "raylib.dll"
 $clang = "C:\software\llvm\bin\clang.exe"
-$w64devkit = "C:\repos\w64devkit"
 
-$gccLibPath = "$w64devkit\lib\gcc\x86_64-w64-mingw32\16.1.0"
-$mingwLibPath = "$w64devkit\x86_64-w64-mingw32\lib"
-$mingwLibPath2 = "$w64devkit\x86_64-w64-mingw32\mingw\lib"
-$w64LibPath = "$w64devkit\lib"
 # ------------------------------------------------------------
 # 1. Compile Mox -> LLVM COFF objects
 # ------------------------------------------------------------
